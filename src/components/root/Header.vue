@@ -2,7 +2,7 @@
   <header id="home-header">
     <div id="contents">
       <span id="logo">
-        <img :src="logoUrl" alt="키인사이드" width="134" height="27" @click="linkToHome" />
+        <img src="../../assets/Asset-1.png" alt="키인사이드" width="134" height="27" @click="linkToHome" />
       </span>
 
       <nav id="nav-bar">
@@ -21,8 +21,6 @@
 export default {
   data() {
     return {
-      logoUrl:
-        "http://www.key-inside.com/wp-content/uploads/sites/3/2019/03/Asset-1.png",
       lists: [
         {
           id: 1,

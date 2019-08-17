@@ -3,7 +3,7 @@
     <div id="footer-contents">
       <div id="fixed-info">
         <div id="footer-logo">
-          <img :src="logoUrl" alt="키인사이드" width="157" height="32" @click="linkToHome" />
+          <img src="../../assets/keyinside-logo.png" alt="키인사이드" width="157" height="32" />
         </div>
 
         <div id="recruit-info">
@@ -33,10 +33,7 @@
 <script>
 export default {
   data() {
-    return {
-      logoUrl:
-        "http://www.key-inside.com/wp-content/uploads/sites/3/2019/01/keyinside-logo.png"
-    };
+    return {};
   }
 };
 </script>
@@ -74,6 +71,7 @@ export default {
 }
 #copyright {
   width: 70%;
+  margin-top: 30px;
   border-top: 1px solid #303239;
   font-size: 14px;
   padding-top: 20px;
@@ -96,6 +94,10 @@ p {
 @media screen and (max-width: 400px) {
   #footer-contents {
     width: 90%;
+  }
+  #copyright {
+    display: flex;
+    justify-content: center;
   }
 }
 </style>
