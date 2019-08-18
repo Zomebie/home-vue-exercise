@@ -130,9 +130,11 @@ section.background-filter {
   top: 0;
   width: 100%;
   height: 100%;
+  z-index: -1;
   animation: text-fade 1s;
   animation-delay: 0.6s;
 }
+
 /* responsive */
 @media screen and (max-width: 400px) {
   #news-box {
@@ -177,6 +179,7 @@ section.background-filter {
     background: #e0e0e0;
     transform: scaleX(0);
     transform-origin: left;
+    z-index: 1;
   }
   30% {
     transform: scaleX(1);
@@ -191,6 +194,7 @@ section.background-filter {
     background: #e0e0e0;
     transform: scaleX(0);
     transform-origin: right;
+    z-index: 1;
   }
 }
 </style>

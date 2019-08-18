@@ -7,7 +7,7 @@
 
       <nav id="nav-bar">
         <ul>
-          <li v-for="list in lists" :key="list.id">{{list.name}}</li>
+          <li v-for="list in lists" :key="list.id" :data-hover="list.name">{{list.name}}</li>
         </ul>
       </nav>
 
@@ -89,6 +89,7 @@ export default {
   width: 180px;
   display: flex;
   justify-content: space-between;
+  overflow: hidden;
 }
 #nav-bar li {
   text-align: center;
@@ -97,8 +98,18 @@ export default {
   font-weight: 600;
   font-size: 12px;
   letter-spacing: 0.15px;
+  position: relative;
+}
+
+#nav-bar li:before {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  content: attr(data-hover);
+  z-index: 1;
 }
 #nav-bar li:hover {
+  animation: menu-rotate 0.5s;
 }
 #alter-nav-bar {
   display: none;
@@ -121,11 +132,12 @@ export default {
   }
 }
 /* for animation */
-#nav-bar li::before {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  content: attr(data-hover);
-  z-index: 1;
+@keyframes menu-rotate {
+  0% {
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
 }
 </style>
