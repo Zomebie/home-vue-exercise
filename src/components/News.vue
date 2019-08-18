@@ -6,18 +6,21 @@
     <button id="next" @click="nextSlide">
       <i class="fas fa-angle-right"></i>
     </button>
+    <ul id="slide-bar">
+      <li v-for="item in slideArray" :key="item.id" @click="slideBarClick(item)" :id="item.id"></li>
+    </ul>
     <Slide :source="source"></Slide>
-    <NewsBox :source="source"></NewsBox>
   </section>
 </template>
 <script>
+window.addEventListener("load", _ => {
+  document.getElementById("1").classList.add("clicked");
+});
 import Slide from "./Slide";
-import NewsBox from "./NewsBox";
 
 export default {
   components: {
-    Slide,
-    NewsBox
+    Slide
   },
   data() {
     return {
@@ -69,9 +72,11 @@ export default {
   methods: {
     prevSlide() {
       this.slideEvent(0, this.slideArray.length - 1, -1);
+      this.toggleClassName();
     },
     nextSlide() {
       this.slideEvent(this.slideArray.length - 1, 0, 1);
+      this.toggleClassName();
     },
     slideEvent(arg1, arg2, arg3) {
       if (this.source.id === this.slideArray[arg1].id) {
@@ -84,6 +89,19 @@ export default {
       });
 
       this.source = target;
+    },
+    slideBarClick(item) {
+      this.source = item;
+      this.toggleClassName();
+    },
+    toggleClassName() {
+      const removeTarget = document.getElementsByClassName("clicked");
+
+      if (removeTarget.length > 0) {
+        removeTarget[0].classList.remove("clicked");
+      }
+      const target = document.getElementById(this.source.id);
+      target.classList.toggle("clicked");
     }
   }
 };
@@ -101,6 +119,11 @@ export default {
   transition: visibility 0.3s, opacity 0.5s linear;
 }
 #news-section:hover #next {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.3s, opacity 0.5s linear;
+}
+#news-section:hover #slide-bar {
   visibility: visible;
   opacity: 1;
   transition: visibility 0.3s, opacity 0.5s linear;
@@ -131,7 +154,31 @@ export default {
 #next {
   right: 2%;
 }
-
+#slide-bar {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.5s linear;
+  z-index: 1;
+  padding: 0;
+  width: 255px;
+  justify-content: space-between;
+  transform: matrix(1, 0, 0, 1, -127, -33);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin: 0;
+  display: flex;
+  list-style: none;
+}
+#slide-bar li {
+  width: 60px;
+  height: 3px;
+  background: #aaa;
+  cursor: pointer;
+}
+#slide-bar li.clicked {
+  background: rgba(45, 48, 50, 0.65);
+}
 @media screen and (max-width: 400px) {
   #news-section {
     height: 380px;
