@@ -2,14 +2,22 @@
   <section :key="source.id" class="slides" :style="{backgroundImage:'url(' + slideImg + ')'}">
     <NewsBackgroundDotFilter></NewsBackgroundDotFilter>
     <NewsBackgroundBlueFilter></NewsBackgroundBlueFilter>
-    <div id="dummy-news-box" :key="source.id"></div>
+    <div id="news-box-dummy" :key="'dummy'+source.id"></div>
     <div id="news-box" :key="source.id">
-      <span id="type" :key="source.id">{{source.type}}</span>
+      <span id="type" :key="source.id+source.type">
+        {{source.type}}
+        <span id="type-dummy" :key="'dummy'+source.id+source.type"></span>
+      </span>
 
       <span id="link-box">
+        <span id="link-dummy" :key="'dummy'+source.title"></span>
         <a id="link" :href="source.link" :key="source.title">{{source.title}}</a>
       </span>
-      <span id="additional-info" :key="source.additionalInfo">{{source.additionalInfo}}</span>
+
+      <span id="additional-info" :key="source.additionalInfo">
+        <span id="additional-info-dummy" :key="'dummy'+source.additionalInfo"></span>
+        {{source.additionalInfo}}
+      </span>
     </div>
   </section>
 </template>
@@ -68,7 +76,7 @@ section.background-filter {
   font-family: Rajdhani;
   animation: delayed-box-fade 0.5s;
 }
-#dummy-news-box {
+#news-box-dummy {
   position: absolute;
   z-index: 1;
   width: 50%;
@@ -85,38 +93,52 @@ section.background-filter {
   animation: box-fade 0.5s;
 }
 #type {
+  position: relative;
   font-size: 0.8em;
   font-weight: 600;
   color: rgb(197, 164, 119);
   letter-spacing: 3px;
-  animation: text-fade 2s;
 }
+
 #link-box {
   width: 80%;
   text-align: center;
+  position: relative;
 }
 #link {
   font-size: 2.4em;
   color: rgb(45, 48, 50);
   text-decoration: none;
   cursor: pointer;
-  animation: text-fade 1s;
 }
+
 #link:hover {
   text-decoration-line: underline;
 }
+
 #additional-info {
   text-align: center;
   font-size: 1em;
   color: rgba(45, 48, 50, 0.75);
-  animation: text-fade 2s;
+  position: relative;
+}
+#additional-info-dummy,
+#link-dummy,
+#type-dummy {
+  background: rgba(45, 48, 50, 0);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  animation: text-fade 1s;
+  animation-delay: 0.6s;
 }
 /* responsive */
 @media screen and (max-width: 400px) {
   #news-box {
     top: 50%;
   }
-  #dummy-news-box {
+  #news-box-dummy {
     top: 50%;
   }
   #link {
@@ -152,18 +174,23 @@ section.background-filter {
 }
 @keyframes text-fade {
   0% {
+    background: #e0e0e0;
     transform: scaleX(0);
-    transform-origin: left center;
+    transform-origin: left;
   }
-  20% {
-    transform-origin: left center;
+  30% {
+    transform: scaleX(1);
+    transform-origin: left;
   }
-  80% {
-    transform-origin: right center;
+
+  70% {
+    transform: scaleX(1);
+    transform-origin: right;
   }
   100% {
+    background: #e0e0e0;
     transform: scaleX(0);
-    transform-origin: right center;
+    transform-origin: right;
   }
 }
 </style>
