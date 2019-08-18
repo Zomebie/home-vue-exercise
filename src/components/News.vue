@@ -7,14 +7,17 @@
       <i class="fas fa-angle-right"></i>
     </button>
     <Slide :source="source"></Slide>
+    <NewsBox :source="source"></NewsBox>
   </section>
 </template>
 <script>
 import Slide from "./Slide";
+import NewsBox from "./NewsBox";
 
 export default {
   components: {
-    Slide
+    Slide,
+    NewsBox
   },
   data() {
     return {
@@ -90,6 +93,7 @@ export default {
   position: relative;
   height: 1000px;
   max-height: 1000px;
+  overflow: hidden;
 }
 #news-section:hover #prev {
   visibility: visible;

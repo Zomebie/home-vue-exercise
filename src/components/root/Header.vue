@@ -7,7 +7,7 @@
 
       <nav id="nav-bar">
         <ul>
-          <router-link tag="li" v-for="list in lists" :key="list.id" :to="list.link">{{list.name}}</router-link>
+          <li v-for="list in lists" :key="list.id">{{list.name}}</li>
         </ul>
       </nav>
 
@@ -18,24 +18,30 @@
   </header>
 </template>
 <script>
+window.addEventListener("scroll", _ => {
+  const header = document.getElementById("home-header");
+  if (window.scrollY > 0) {
+    header.style.backgroundColor = "rgba(0, 0, 0, 0.85)";
+
+    return;
+  }
+  header.style.backgroundColor = "transparent";
+});
 export default {
   data() {
     return {
       lists: [
         {
           id: 1,
-          name: "TEAM",
-          link: "/team"
+          name: "TEAM"
         },
         {
           id: 2,
-          name: "BLOG",
-          link: "/blog"
+          name: "BLOG"
         },
         {
           id: 3,
-          name: "CAREER",
-          link: "/career"
+          name: "CAREER"
         }
       ]
     };
@@ -59,6 +65,7 @@ export default {
   border-bottom: 1px solid rgba(240, 240, 240, 0.2);
   display: flex;
   justify-content: center;
+  transition: 0.3s ease-in-out;
 }
 #contents {
   width: 1170px;
@@ -83,15 +90,15 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-#nav-bar router-link {
-  text-align: center;
-  cursor: pointer;
-  transition: all ease 0.3s;
-}
 #nav-bar li {
   text-align: center;
   cursor: pointer;
   transition: all ease 0.3s;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.15px;
+}
+#nav-bar li:hover {
 }
 #alter-nav-bar {
   display: none;
