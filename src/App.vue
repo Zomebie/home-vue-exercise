@@ -5,6 +5,7 @@
     <Footer></Footer>
   </div>
 </template>
+
 <script>
 import Header from "./components/root/Header";
 import Article from "./components/root/Article";
@@ -18,6 +19,7 @@ export default {
   }
 };
 </script>
+
 <style>
 #app {
   -webkit-font-smoothing: antialiased;

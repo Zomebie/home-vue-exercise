@@ -1,33 +1,40 @@
 <template>
   <section id="news-section">
-    <button id="prev" @click="prevSlide">
+    <button id="prev-arrow" class="slide-button arrow" @click="prevSlide">
       <i class="fas fa-angle-left"></i>
     </button>
-    <button id="next" @click="nextSlide">
+
+    <button id="next-arrow" class="slide-button arrow" @click="nextSlide">
       <i class="fas fa-angle-right"></i>
     </button>
-    <ul id="slide-bar">
-      <li v-for="item in slideArray" :key="item.id" @click="slideBarClick(item)" :id="item.id"></li>
+
+    <ul id="slide-bottom-bar" class="slide-button">
+      <li
+        v-for="item in slideArray"
+        :key="item.id"
+        :id="item.id"
+        :class="{'selected':(item.id===1)}"
+        @click="slideBarClick(item.id)"
+      ></li>
     </ul>
-    <Slide :source="source"></Slide>
+
+    <Slide :source="selectedSlide"></Slide>
   </section>
 </template>
+
 <script>
-window.addEventListener("load", _ => {
-  document.getElementById("1").classList.add("clicked");
-});
 import Slide from "./Slide";
 
 export default {
   components: {
     Slide
   },
+
   data() {
     return {
       slideArray: [
         {
           id: 1,
-          img: "src/assets/img_main_coindesk-0716.jpg",
           type: "NEWS",
           title: "하이퍼레저 패브릭 기반 암호화폐가 온다",
           link: "https://www.coindeskkorea.com/hyperledgerfabrictoken/",
@@ -35,7 +42,6 @@ export default {
         },
         {
           id: 2,
-          img: "src/assets/img_main.jpg",
           type: "NEWS",
           title: "키인사이드, 포인트 호환을 통해서 블록체인 대중화 나선다",
           link: "http://www.thebchain.co.kr/news/articleView.html?idxno=3629",
@@ -43,7 +49,6 @@ export default {
         },
         {
           id: 3,
-          img: "src/assets/img_main_coindesk.jpg",
           type: "MEDIA",
           title: "블록체인 기반 여행 테마의 마일리지 통합 서비스 연내 구축",
           link:
@@ -52,60 +57,77 @@ export default {
         },
         {
           id: 4,
-          img: "src/assets/rsz_image.png",
           type: "NEWS",
           title: "키인사이드, 포인트 호환을 통해서 블록체인 대중화 나선다",
           link: "http://www.thebchain.co.kr/news/articleView.html?idxno=3629",
           additionalInfo: "thebchain 2019.3.13"
         }
       ],
-      source: {
-        id: 1,
-        img: "src/assets/img_main_coindesk-0716.jpg",
-        type: "NEWS",
-        title: "하이퍼레저 패브릭 기반 암호화폐가 온다",
-        link: "https://www.coindeskkorea.com/hyperledgerfabrictoken/",
-        additionalInfo: "coindeskkorea 2019.7.5"
-      }
+      selectedSlide: {}
     };
   },
+
+  created() {
+    this.selectedSlide = this.slideArray[0];
+    // this.$store.state.slide = this.slideArray[0];
+  },
+
+  // computed: {
+  //   selectedSlide: {
+  //     get() {
+  //       return this.$store.state.slide;
+  //     },
+  //     set(selected) {
+  //       this.$store.state.slide = selected;
+  //     }
+  //   }
+  // },
+
   methods: {
     prevSlide() {
-      this.slideEvent(0, this.slideArray.length - 1, -1);
-      this.toggleClassName();
-    },
-    nextSlide() {
-      this.slideEvent(this.slideArray.length - 1, 0, 1);
-      this.toggleClassName();
-    },
-    slideEvent(arg1, arg2, arg3) {
-      if (this.source.id === this.slideArray[arg1].id) {
-        this.source = this.slideArray[arg2];
+      const selectedSlideId = this.selectedSlide.id;
 
-        return;
+      if (selectedSlideId > 1) {
+        this.selectedSlide = this.slideArray[selectedSlideId - 2];
+      } else {
+        this.selectedSlide = this.slideArray[3];
       }
-      let target = this.slideArray.find(item => {
-        return this.source.id + arg3 === item.id;
-      });
 
-      this.source = target;
+      // pass the changed slide id
+      this.toggleClassName(this.selectedSlide.id);
     },
-    slideBarClick(item) {
-      this.source = item;
-      this.toggleClassName();
+
+    nextSlide() {
+      const selectedSlideId = this.selectedSlide.id;
+
+      if (selectedSlideId < 4) {
+        this.selectedSlide = this.slideArray[selectedSlideId];
+      } else {
+        this.selectedSlide = this.slideArray[0];
+      }
+
+      // pass the changed slide id
+      this.toggleClassName(this.selectedSlide.id);
     },
-    toggleClassName() {
-      const removeTarget = document.getElementsByClassName("clicked");
+
+    slideBarClick(itemId) {
+      this.selectedSlide = this.slideArray[itemId - 1];
+      this.toggleClassName(itemId);
+    },
+
+    toggleClassName(selectedSlideId) {
+      const removeTarget = document.getElementsByClassName("selected");
 
       if (removeTarget.length > 0) {
-        removeTarget[0].classList.remove("clicked");
+        removeTarget[0].classList.remove("selected");
       }
-      const target = document.getElementById(this.source.id);
-      target.classList.toggle("clicked");
+      const target = document.getElementById(selectedSlideId);
+      target.classList.toggle("selected");
     }
   }
 };
 </script>
+
 <style>
 #news-section {
   position: relative;
@@ -113,72 +135,72 @@ export default {
   max-height: 1000px;
   overflow: hidden;
 }
-#news-section:hover #prev {
+
+#news-section:hover .slide-button {
   visibility: visible;
   opacity: 1;
   transition: visibility 0.3s, opacity 0.5s linear;
 }
-#news-section:hover #next {
-  visibility: visible;
-  opacity: 1;
-  transition: visibility 0.3s, opacity 0.5s linear;
-}
-#news-section:hover #slide-bar {
-  visibility: visible;
-  opacity: 1;
-  transition: visibility 0.3s, opacity 0.5s linear;
-}
-#prev,
-#next {
-  z-index: 1;
-  transition: visibility 0.5s, opacity 0.5s linear;
-  opacity: 0;
-  visibility: hidden;
-  display: flex;
-  justify-content: center;
-  border: none;
-  outline: none;
-  cursor: pointer;
+
+.arrow {
   position: absolute;
   top: 50%;
-  font-size: 25px;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 50%;
   width: 40px;
   height: 40px;
-  color: white;
-}
-#prev {
-  left: 2%;
-}
-#next {
-  right: 2%;
-}
-#slide-bar {
+  padding: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
   visibility: hidden;
   opacity: 0;
   transition: visibility 0.5s, opacity 0.5s linear;
-  z-index: 1;
-  padding: 0;
-  width: 255px;
-  justify-content: space-between;
-  transform: matrix(1, 0, 0, 1, -127, -33);
+  border: none;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 25px;
+}
+
+#prev-arrow {
+  transform: matrix(1, 0, 0, 1, 30, -20);
+}
+
+#next-arrow {
+  transform: matrix(1, 0, 0, 1, -70, -20);
+  left: 100%;
+}
+
+#slide-bottom-bar {
   position: absolute;
   top: 100%;
   left: 50%;
+  width: 255px;
+  padding: 0;
   margin: 0;
+  z-index: 1;
   display: flex;
+  justify-content: space-between;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.5s linear;
+  transform: matrix(1, 0, 0, 1, -127, -33);
   list-style: none;
 }
-#slide-bar li {
+
+#slide-bottom-bar li {
   width: 60px;
   height: 3px;
-  background: #aaa;
+  background: rgba(45, 48, 50, 0.2);
   cursor: pointer;
 }
-#slide-bar li.clicked {
+
+#slide-bottom-bar li.selected {
   background: rgba(45, 48, 50, 0.65);
 }
+
+/* responsive */
 @media screen and (max-width: 400px) {
   #news-section {
     height: 380px;

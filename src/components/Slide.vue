@@ -1,26 +1,27 @@
 <template>
-  <section :key="source.id" class="slides" :style="{backgroundImage:'url(' + slideImg + ')'}">
+  <section :key="source.id" :style="{backgroundImage:'url(' + slideImage + ')'}" class="slides">
     <NewsBackgroundDotFilter></NewsBackgroundDotFilter>
     <NewsBackgroundBlueFilter></NewsBackgroundBlueFilter>
-    <div id="news-box-dummy" :key="'dummy'+source.id"></div>
-    <div id="news-box" :key="source.id">
-      <span id="type" :key="source.id+source.type">
+    <div id="news-box-dummy" class="news-box-animation"></div>
+    <div id="news-box" class="news-box-animation">
+      <span id="type">
+        <span class="dummy"></span>
         {{source.type}}
-        <span id="type-dummy" :key="'dummy'+source.id+source.type"></span>
       </span>
 
       <span id="link-box">
-        <span id="link-dummy" :key="'dummy'+source.title"></span>
-        <a id="link" :href="source.link" :key="source.title">{{source.title}}</a>
+        <span class="dummy"></span>
+        <a :href="source.link">{{source.title}}</a>
       </span>
 
-      <span id="additional-info" :key="source.additionalInfo">
-        <span id="additional-info-dummy" :key="'dummy'+source.additionalInfo"></span>
+      <span id="additional-info">
+        <span class="dummy"></span>
         {{source.additionalInfo}}
       </span>
     </div>
   </section>
 </template>
+
 <script>
 import NewsBackgroundDotFilter from "./NewsBackgroundDotFilter";
 import NewsBackgroundBlueFilter from "./NewsBackgroundBlueFilter";
@@ -29,6 +30,7 @@ export default {
     NewsBackgroundDotFilter,
     NewsBackgroundBlueFilter
   },
+
   props: {
     source: {
       type: Object,
@@ -37,15 +39,17 @@ export default {
       }
     }
   },
+
   computed: {
-    slideImg() {
-      return this.source.img;
+    slideImage() {
+      return `src/assets/main/slide_${this.source.id}.jpg`;
     }
   }
 };
 </script>
+
 <style>
-section.background-filter {
+.background-filter {
   position: absolute;
   top: 0;
   width: 100%;
@@ -60,93 +64,98 @@ section.background-filter {
   background-position: center center;
   animation: background-image-fade 0.5s ease-in;
 }
-#news-box {
+
+.news-box-animation {
   position: absolute;
+  width: 940px;
+  height: 142px;
+  bottom: 60px;
+  left: 0;
+  right: 0;
   z-index: 1;
-  width: 50%;
-  height: 15%;
-  top: 70%;
-  left: 25%;
-  background: white;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 50px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  padding: 50px 0;
+  justify-content: space-between;
+  background: white;
   font-family: Rajdhani;
+}
+
+#news-box {
   animation: delayed-box-fade 0.5s;
 }
+
 #news-box-dummy {
-  position: absolute;
-  z-index: 1;
-  width: 50%;
-  height: 15%;
-  top: 70%;
-  left: 25%;
-  padding: 50px 0;
   background: rgba(255, 255, 255, 0.9);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  font-family: Rajdhani;
   animation: box-fade 0.5s;
 }
+
 #type {
   position: relative;
-  font-size: 0.8em;
+  font-size: 15px;
   font-weight: 600;
   color: rgb(197, 164, 119);
   letter-spacing: 3px;
 }
 
 #link-box {
-  width: 80%;
-  text-align: center;
   position: relative;
+  width: 80%;
+  font-size: 45px;
+  text-align: center;
 }
-#link {
-  font-size: 2.4em;
+
+#link-box > a {
   color: rgb(45, 48, 50);
   text-decoration: none;
   cursor: pointer;
 }
 
-#link:hover {
+#link-box > a:hover {
   text-decoration-line: underline;
 }
 
 #additional-info {
-  text-align: center;
-  font-size: 1em;
-  color: rgba(45, 48, 50, 0.75);
   position: relative;
+  font-size: 16px;
+  text-align: center;
+  color: rgba(45, 48, 50, 0.75);
 }
-#additional-info-dummy,
-#link-dummy,
-#type-dummy {
-  background: rgba(45, 48, 50, 0);
+
+.dummy {
   position: absolute;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   z-index: -1;
+  background: rgba(45, 48, 50, 0);
   animation: text-fade 1s;
   animation-delay: 0.6s;
 }
 
 /* responsive */
-@media screen and (max-width: 400px) {
-  #news-box {
-    top: 50%;
-  }
-  #news-box-dummy {
-    top: 50%;
-  }
-  #link {
-    font-size: 1em;
+@media screen and (max-width: 1200px) {
+  .news-box-animation {
+    width: 80%;
   }
 }
+
+@media screen and (max-width: 400px) {
+  #news-box {
+    top: 30%;
+  }
+  #news-box-dummy {
+    top: 30%;
+  }
+  #link-box {
+    font-size: 1.5em;
+  }
+}
+
 /* animation */
 @keyframes background-image-fade {
   0% {
@@ -163,6 +172,7 @@ section.background-filter {
     transform-origin: bottom;
   }
 }
+
 @keyframes delayed-box-fade {
   0% {
     transform: scaleY(0);
@@ -174,6 +184,7 @@ section.background-filter {
     transform-origin: bottom;
   }
 }
+
 @keyframes text-fade {
   0% {
     background: #e0e0e0;

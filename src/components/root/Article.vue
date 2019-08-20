@@ -4,6 +4,7 @@
     <Contents></Contents>
   </article>
 </template>
+
 <script>
 import News from "../News";
 import Contents from "../Contents";
@@ -15,4 +16,3 @@ export default {
   }
 };
 </script>
-<style></style>

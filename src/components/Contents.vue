@@ -1,18 +1,203 @@
 <template>
   <section id="contents-section">
-    <WhatWeDo></WhatWeDo>
+    <div id="projects" class="common">
+      <img src="../assets/main/title_whatwedo.png" width="181" height="23" />
+      <div class="responsive">
+        <img class="animated-image" src="../assets/main/img_do01.png" width="380" height="302" />
+        <img class="animated-image" src="../assets/main/img_do02.png" width="370" height="294" />
+        <img class="animated-image" src="../assets/main/img_do03.png" width="380" height="302" />
+      </div>
+    </div>
+
+    <div id="origin" class="responsive">
+      <img src="../assets/main/img_origin01.png" width="590" height="400" />
+      <img src="../assets/main/img_origin02.png" width="590" height="400" />
+    </div>
+
+    <div id="vision" class="responsive">
+      <img src="../assets/main/img_vision01.png" width="590" height="400" />
+      <img src="../assets/main/img_vision02.png" width="590" height="400" />
+    </div>
+
+    <div id="mission" class="common">
+      <img src="../assets/main/title_mission.value_.png" width="235" height="23" />
+      <div class="responsive">
+        <img src="../assets/main/img_mission01.jpg" width="380" height="437" />
+        <img src="../assets/main/img_mission02.jpg" width="380" height="437" />
+        <img src="../assets/main/img_mission03.jpg" width="380" height="437" />
+      </div>
+    </div>
+
+    <div id="values" class="responsive">
+      <img src="../assets/main/img_values.jpg" width="1180" height="140" />
+    </div>
+
+    <div id="eco-system" class="common">
+      <img src="../assets/main/title_ecosystem-1.png" width="541" height="54" />
+      <img src="../assets/main/img_eco-3.jpg" width="1090" height="410" />
+      <img src="../assets/main/txt_eco-1.jpg" width="473" height="16" />
+    </div>
+
+    <div id="road-map" class="common">
+      <img src="../assets/main/title_roadmap.png" width="541" height="64" />
+      <div class="responsive">
+        <img src="../assets/main/img_roadmap01.jpg" width="590" height="360" />
+        <img src="../assets/main/img_roadmap02-1.jpg" width="590" height="360" />
+      </div>
+    </div>
+
+    <div id="partners" class="common">
+      <img src="../assets/main/title_partners-1.png" width="541" height="56" />
+      <div class="responsive">
+        <img src="../assets/main/img_partner1.jpg" width="380" height="90" />
+        <img src="../assets/main/img_partner2-1.jpg" width="389" height="100" />
+        <img src="../assets/main/img_partner3.jpg" width="380" height="100" />
+      </div>
+    </div>
+
+    <div id="map" class="common">
+      <img src="../assets/main/title_beintouch-1.jpg" width="171" height="23" />
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5323.193314215714!2d127.05144036130355!3d37.503444189831114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca415adc25371%3A0xb980b53ba08dc51c!2z7Jyk7LKc67mM65Sp!5e0!3m2!1sko!2skr!4v1550132222216"
+        width="1160"
+        height="550"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+    </div>
   </section>
 </template>
+
 <script>
-import WhatWeDo from "./WhatWeDo";
-export default {
-  components: {
-    WhatWeDo
-  }
+const ioCallback = entries => {
+  entries.forEach(({ intersectionRatio, target }) => {
+    if (intersectionRatio > 0) {
+      target.classList.add("observed");
+    }
+  });
 };
+
+const intersectionObserver = new IntersectionObserver(ioCallback);
+
+window.addEventListener("load", _ => {
+  const animatedImages = document.getElementsByClassName("animated-image");
+
+  for (let item of animatedImages) {
+    intersectionObserver.observe(item);
+  }
+});
 </script>
+
 <style>
-#contents-section {
-  min-height: 500px;
+.common {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 120px;
+}
+
+.responsive {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#projects div {
+  width: 100%;
+  margin-top: 30px;
+  background-color: #fafaff;
+}
+
+.animated-image {
+  box-shadow: 5px 15px 35px #032d5d50;
+  margin: 35px 15px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s, opacity 0.5s linear;
+}
+
+.observed:first-child {
+  animation: flying-from-left 1s forwards;
+}
+
+.observed:nth-child(2) {
+  animation: flying-from-bottom 1s forwards;
+}
+
+.observed:last-child {
+  animation: flying-from-right 1s forwards;
+}
+
+#origin {
+  margin-top: 45px;
+}
+
+#origin img:first-child {
+  margin-right: 10px;
+}
+
+#vision img:first-child {
+  margin-right: -10px;
+}
+
+#mission {
+  margin-top: 150px;
+}
+
+#mission div.responsive > img {
+  margin: 40px 8px 80px 8px;
+}
+
+#eco-system img:last-child {
+  margin-top: 30px;
+}
+
+#partners div.responsive > img {
+  margin: 15px;
+}
+
+#map > iframe {
+  margin: 40px 0;
+}
+
+/* animation */
+@keyframes flying-from-left {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@keyframes flying-from-bottom {
+  0% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@keyframes flying-from-right {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+/* responsive */
+@media screen and (max-width: 400px) {
+  #map > iframe {
+    height: 400px;
+  }
 }
 </style>
