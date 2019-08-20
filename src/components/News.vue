@@ -1,5 +1,6 @@
 <template>
   <section id="news-section">
+    <div id="page-loading-icon"></div>
     <button id="prev-arrow" class="slide-button arrow" @click="prevSlide">
       <i class="fas fa-angle-left"></i>
     </button>
@@ -134,6 +135,18 @@ export default {
   height: 1000px;
   max-height: 1000px;
   overflow: hidden;
+}
+
+#page-loading-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  z-index: 2;
+  background: white;
+  box-shadow: 15px 15px 35px #032d5d50;
+  display: none;
 }
 
 #news-section:hover .slide-button {

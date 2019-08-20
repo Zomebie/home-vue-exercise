@@ -44,12 +44,10 @@ footer {
   align-items: center;
   background: #1e1e1e;
   color: #b4b4b4;
-  font-family: "Rajdhani", Arial, sans-serif;
-  font-style: normal;
 }
 
 #footer-contents {
-  width: 70%;
+  width: 1170px;
   display: flex;
 }
 
@@ -72,7 +70,7 @@ footer {
 }
 
 #copyright {
-  width: 70%;
+  width: 1170px;
   margin-top: 30px;
   padding-top: 20px;
   padding-left: 30px;
@@ -81,9 +79,14 @@ footer {
 }
 
 /* responsive */
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1200px) {
   #footer-contents {
     flex-direction: column;
+    width: 70%;
+  }
+
+  #copyright {
+    width: 70%;
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <section id="news-background-blue-filter" class="background-filter"></section>
+  <section id="news-background-blue-filter" class="background-filter slide"></section>
 </template>
 <style>
 #news-background-blue-filter {

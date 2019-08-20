@@ -1,5 +1,10 @@
 <template>
-  <section :key="source.id" :style="{backgroundImage:'url(' + slideImage + ')'}" class="slides">
+  <section
+    :key="source.id"
+    :style="{backgroundImage:'url(' + slideImage + ')'}"
+    :class="{'filter':(source.id===1),'slide':true}"
+    id="slide"
+  >
     <NewsBackgroundDotFilter></NewsBackgroundDotFilter>
     <NewsBackgroundBlueFilter></NewsBackgroundBlueFilter>
     <div id="news-box-dummy" class="news-box-animation"></div>
@@ -25,6 +30,7 @@
 <script>
 import NewsBackgroundDotFilter from "./NewsBackgroundDotFilter";
 import NewsBackgroundBlueFilter from "./NewsBackgroundBlueFilter";
+
 export default {
   components: {
     NewsBackgroundDotFilter,
@@ -49,21 +55,21 @@ export default {
 </script>
 
 <style>
-.background-filter {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.slides {
+#slide {
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  animation: background-image-fade 0.5s ease-in;
 }
+
+.slide {
+  animation: background-image-fade 1.5s;
+}
+
+/* .filter {
+  filter: contrast(1.2) saturate(1.35);
+} */
 
 .news-box-animation {
   position: absolute;
@@ -81,7 +87,6 @@ export default {
   align-items: center;
   justify-content: space-between;
   background: white;
-  font-family: Rajdhani;
 }
 
 #news-box {
@@ -137,29 +142,10 @@ export default {
   animation-delay: 0.6s;
 }
 
-/* responsive */
-@media screen and (max-width: 1200px) {
-  .news-box-animation {
-    width: 80%;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  #news-box {
-    top: 30%;
-  }
-  #news-box-dummy {
-    top: 30%;
-  }
-  #link-box {
-    font-size: 1.5em;
-  }
-}
-
 /* animation */
 @keyframes background-image-fade {
   0% {
-    opacity: 0;
+    background: rgb(14, 65, 121);
   }
 }
 
@@ -206,6 +192,25 @@ export default {
     transform: scaleX(0);
     transform-origin: right;
     z-index: 1;
+  }
+}
+
+/* responsive */
+@media screen and (max-width: 1200px) {
+  .news-box-animation {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #news-box {
+    top: 30%;
+  }
+  #news-box-dummy {
+    top: 30%;
+  }
+  #link-box {
+    font-size: 1.5em;
   }
 }
 </style>

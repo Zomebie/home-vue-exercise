@@ -1,8 +1,8 @@
 <template>
-  <section id="news-background-dot-filter" class="background-filter"></section>
+  <section id="news-background-dot-filter" class="background-filter slide"></section>
 </template>
 <style>
 #news-background-dot-filter {
-  background-image: url(http://www.key-inside.com/wp-content/plugins/revslider/public/assets/assets/xgridtile_3x3.png.pagespeed.ic.ueIBHLw3bL.webp);
+  background-image: url("../assets/main/dot-background.png");
 }
 </style>

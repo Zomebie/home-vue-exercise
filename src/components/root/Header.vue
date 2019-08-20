@@ -11,9 +11,9 @@
 
       <nav id="nav-bar">
         <ul>
-          <li v-for="list in lists" :key="list.id">
+          <router-link tag="li" v-for="list in lists" :key="list.id" :to="list.link">
             <span :data-hover="list.name">{{list.name}}</span>
-          </li>
+          </router-link>
         </ul>
       </nav>
 
@@ -54,15 +54,18 @@ export default {
       lists: [
         {
           id: 1,
-          name: "TEAM"
+          name: "TEAM",
+          link: "/meet-our-team"
         },
         {
           id: 2,
-          name: "BLOG"
+          name: "BLOG",
+          link: "/category/blog"
         },
         {
           id: 3,
-          name: "CAREER"
+          name: "CAREER",
+          link: "/join-with-us-2"
         }
       ]
     };
@@ -116,7 +119,6 @@ header {
   font-size: 12px;
   font-weight: 600;
   color: white;
-  font-family: "Rajdhani", Arial, sans-serif;
   letter-spacing: 0.15px;
   transition: all ease 0.3s;
   cursor: pointer;
@@ -132,6 +134,20 @@ header {
   z-index: 1;
   content: attr(data-hover);
 }
+
+/* #nav-bar > ul > li > .menu-separator {
+  display: none;
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  width: 100%;
+  height: 4px;
+  content: "";
+  background-color: #1e73be;
+}
+
+.router-link-exact-active {
+} */
 
 #nav-bar > ul > li:hover {
   animation: change-color 1s forwards;
@@ -174,8 +190,7 @@ header {
 
 @keyframes change-color {
   100% {
-    color: #337ab7;
-    /* color: #1e73be; */
+    color: #1e73be;
   }
 }
 </style>
