@@ -12,42 +12,33 @@
       <nav id="nav-bar">
         <ul>
           <router-link tag="li" v-for="list in lists" :key="list.id" :to="list.link">
-            <span :data-hover="list.name">{{list.name}}</span>
+            <span class="menu-wrapper">
+              <span class="text-wrapper">
+                <span class="text" :data-hover="list.name">{{list.name}}</span>
+              </span>
+              <span class="menu-seperator"></span>
+            </span>
           </router-link>
         </ul>
       </nav>
 
-      <nav id="alter-nav-bar" @click="showNavLists">
-        <i class="fas fa-bars"></i>
+      <button id="alter-nav-bar-button" @click="showAlterNav">
+        <i class="fas fa-bars" v-if="!alterNavigationShowed"></i>
+        <i class="fas fa-times" v-else></i>
+      </button>
+
+      <nav id="alter-nav-bar" v-if="alterNavigationShowed">
+        <ul>
+          <router-link tag="li" v-for="list in lists" :key="list.id" :to="list.link">
+            <span>{{list.name}}</span>
+          </router-link>
+        </ul>
       </nav>
     </div>
   </header>
 </template>
 
 <script>
-window.addEventListener("scroll", _ => {
-  const header = document.querySelector("header");
-  if (window.scrollY > 0) {
-    header.style.backgroundColor = "rgba(0, 0, 0, 0.85)";
-    return;
-  }
-  header.style.backgroundColor = "transparent";
-});
-
-window.addEventListener("load", _ => {
-  const lists = document.querySelectorAll("#nav-bar ul li");
-
-  for (let item of lists) {
-    item.addEventListener("mouseover", ({ currentTarget }) => {
-      currentTarget.style.transform = "translateY(-100%)";
-    });
-
-    item.addEventListener("mouseout", ({ currentTarget }) => {
-      currentTarget.style.transform = "translateY(0%)";
-    });
-  }
-});
-
 export default {
   data() {
     return {
@@ -67,7 +58,8 @@ export default {
           name: "CAREER",
           link: "/join-with-us-2"
         }
-      ]
+      ],
+      alterNavigationShowed: false
     };
   },
 
@@ -75,7 +67,13 @@ export default {
     linkToHome() {
       location.href = "/";
     },
-    showNavLists() {}
+    showAlterNav() {
+      if (this.alterNavigationShowed) {
+        this.alterNavigationShowed = false;
+      } else {
+        this.alterNavigationShowed = true;
+      }
+    }
   }
 };
 </script>
@@ -95,6 +93,7 @@ header {
 }
 
 #header-contents {
+  position: relative;
   width: 1170px;
   display: flex;
   align-items: center;
@@ -107,11 +106,10 @@ header {
 
 #nav-bar > ul {
   margin: 0;
-  padding: 0 7px 0 0;
+  padding: 0 11px 0 0;
   display: flex;
   justify-content: space-between;
   list-style: none;
-  overflow: hidden;
 }
 
 #nav-bar > ul > li {
@@ -120,50 +118,99 @@ header {
   font-weight: 600;
   color: white;
   letter-spacing: 0.15px;
-  transition: all ease 0.3s;
   cursor: pointer;
 }
 
-#nav-bar > ul > li > span {
+#nav-bar > ul > li > .menu-wrapper {
   padding: 36px 25px;
+  display: inline-block;
 }
 
-#nav-bar > ul > li > span:before {
+#nav-bar > ul > li > .menu-wrapper > .text-wrapper {
+  display: block;
+  overflow: hidden;
+}
+
+#nav-bar > ul > li > .menu-wrapper > .text-wrapper > .text {
+  position: relative;
+  display: inline-block;
+  transition: all ease 0.3s;
+}
+
+#nav-bar > ul > li > .menu-wrapper > .text-wrapper > .text:before {
   position: absolute;
   top: 100%;
   z-index: 1;
   content: attr(data-hover);
 }
 
-/* #nav-bar > ul > li > .menu-separator {
-  display: none;
+#nav-bar > ul > li > .menu-wrapper > .menu-seperator {
   position: absolute;
-  bottom: -1px;
+  top: 100%;
   left: 50%;
   width: 100%;
   height: 4px;
-  content: "";
+  display: none;
   background-color: #1e73be;
+  transform: translateX(-50%);
 }
 
-.router-link-exact-active {
-} */
-
 #nav-bar > ul > li:hover {
-  animation: change-color 1s forwards;
+  animation: change-color 0.4s forwards;
+}
+
+#nav-bar > ul > .router-link-exact-active {
+  color: #1e73be;
+}
+
+#nav-bar > ul > .router-link-exact-active > .menu-wrapper > .menu-seperator {
+  display: flex;
+}
+
+#alter-nav-bar-button {
+  display: none;
+  border: none;
+  font-size: 18px;
+  color: #333;
+  background: none;
+  cursor: pointer;
+  outline: none;
 }
 
 #alter-nav-bar {
-  display: none;
-  font-size: 18px;
-  color: #333;
+  position: absolute;
+  top: 94px;
+  width: 100%;
+  background: #161616;
+  visibility: hidden;
+  opacity: 0;
+  animation: NavigationFadeIn 1s forwards;
+}
+
+#alter-nav-bar.closed {
+  animation: NavigationFadeOut 1s forwards;
+}
+
+#alter-nav-bar > ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+#alter-nav-bar > ul > li {
+  padding: 14px 0 14px 20px;
+  font-size: 14px;
+  color: #fff;
   cursor: pointer;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* responsive */
 @media screen and (max-width: 1200px) {
   #header-contents {
-    justify-content: space-around;
+    width: 90%;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 }
 
@@ -171,26 +218,44 @@ header {
   #nav-bar {
     display: none;
   }
-  #alter-nav-bar {
+  #alter-nav-bar-button {
     display: flex;
   }
 }
+
 /* animation */
-/* @keyframes rotate {
-  100% {
-    transform: translateY(-100%);
-  }
-}
-
-@keyframes back-rotate {
-  100% {
-    transform: translateY(0%);
-  }
-} */
-
 @keyframes change-color {
   100% {
     color: #1e73be;
+  }
+}
+
+@keyframes NavigationFadeIn {
+  0% {
+    display: flex;
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  100% {
+    transform-origin: top;
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@keyframes NavigationFadeOut {
+  0% {
+    transform-origin: top;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(0);
+    transform-origin: top;
+    visibility: hidden;
+    opacity: 0;
   }
 }
 </style>

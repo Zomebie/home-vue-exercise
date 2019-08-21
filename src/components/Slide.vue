@@ -3,10 +3,12 @@
     :key="source.id"
     :style="{backgroundImage:'url(' + slideImage + ')'}"
     :class="{'filter':(source.id===1),'slide':true}"
-    id="slide"
+    id="slide-main"
   >
-    <NewsBackgroundDotFilter></NewsBackgroundDotFilter>
-    <NewsBackgroundBlueFilter></NewsBackgroundBlueFilter>
+    <div id="news-background-blue-filter" class="background-filter slide"></div>
+    <div id="news-background-dot-filter" class="background-filter slide" v-if="source.id!==1"></div>
+    <div id="main-slide-only-filter" class="background-filter slide" v-if="source.id===1"></div>
+
     <div id="news-box-dummy" class="news-box-animation"></div>
     <div id="news-box" class="news-box-animation">
       <span id="type">
@@ -28,15 +30,7 @@
 </template>
 
 <script>
-import NewsBackgroundDotFilter from "./NewsBackgroundDotFilter";
-import NewsBackgroundBlueFilter from "./NewsBackgroundBlueFilter";
-
 export default {
-  components: {
-    NewsBackgroundDotFilter,
-    NewsBackgroundBlueFilter
-  },
-
   props: {
     source: {
       type: Object,
@@ -55,7 +49,11 @@ export default {
 </script>
 
 <style>
-#slide {
+.slide {
+  animation: background-image-fade 1.5s;
+}
+
+#slide-main {
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
@@ -63,13 +61,19 @@ export default {
   background-position: center center;
 }
 
-.slide {
-  animation: background-image-fade 1.5s;
+#news-background-blue-filter {
+  background-color: rgba(0, 91, 171, 0.5);
 }
 
-/* .filter {
-  filter: contrast(1.2) saturate(1.35);
-} */
+#news-background-dot-filter {
+  background-image: url("../assets/main/dot-background.png");
+}
+
+#main-slide-only-filter {
+  filter: contrast(0.5) saturate(1);
+  background: rgba(127, 187, 227, 0.2);
+  mix-blend-mode: overlay;
+}
 
 .news-box-animation {
   position: absolute;
@@ -85,7 +89,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   background: white;
 }
 

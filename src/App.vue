@@ -20,9 +20,9 @@ export default {
 
 <style>
 #app {
-  -webkit-font-smoothing: antialiased;
   font-family: "Rajdhani", Arial, sans-serif;
   font-style: normal;
+  -webkit-font-smoothing: antialiased;
 }
 
 .background-filter {

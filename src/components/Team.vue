@@ -78,7 +78,7 @@ export default {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 #members .team-common > img:nth-child(2) {

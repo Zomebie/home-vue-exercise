@@ -1,6 +1,7 @@
 <template>
   <section id="news-section">
-    <div id="page-loading-icon"></div>
+    <progress :value="progressValue"></progress>
+    <!-- <div id="page-loading-icon"></div> -->
     <button id="prev-arrow" class="slide-button arrow" @click="prevSlide">
       <i class="fas fa-angle-left"></i>
     </button>
@@ -64,13 +65,35 @@ export default {
           additionalInfo: "thebchain 2019.3.13"
         }
       ],
-      selectedSlide: {}
+      selectedSlide: {},
+      progressValue: 0,
+      timerId: null
     };
   },
 
   created() {
     this.selectedSlide = this.slideArray[0];
     // this.$store.state.slide = this.slideArray[0];
+  },
+  mounted() {
+    const slide = document.getElementById("news-section");
+
+    slide.addEventListener("mouseover", _ => {
+      if (this.timerId) {
+        clearInterval(this.timerId);
+      }
+    });
+
+    slide.addEventListener("mouseout", _ => {
+      this.timerId = setInterval(_ => {
+        if (this.progressValue >= 10) {
+          this.nextSlide();
+          this.progressValue = 0;
+        } else {
+          this.progressValue++;
+        }
+      }, 1000);
+    });
   },
 
   // computed: {
@@ -135,6 +158,15 @@ export default {
   height: 1000px;
   max-height: 1000px;
   overflow: hidden;
+}
+
+progress {
+  position: absolute;
+  top: 0;
+  width: 0%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.15);
+  /* animation: progressive 10s forwards; */
 }
 
 #page-loading-icon {
@@ -217,6 +249,12 @@ export default {
 @media screen and (max-width: 400px) {
   #news-section {
     height: 380px;
+  }
+}
+
+@keyframes progressive {
+  100% {
+    width: 100%;
   }
 }
 </style>

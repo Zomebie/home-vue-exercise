@@ -6,7 +6,7 @@
           <img src="../../assets/main/keyinside-logo.png" alt="키인사이드" width="157" height="32" />
         </div>
 
-        <div class="half-basis" id="recruit-info">
+        <div id="recruit-info" class="half-basis">
           <div>
             <strong>RECRUIT</strong>
             <p>recruite@key-inside.com</p>
@@ -81,8 +81,8 @@ footer {
 /* responsive */
 @media screen and (max-width: 1200px) {
   #footer-contents {
-    flex-direction: column;
     width: 70%;
+    flex-direction: column;
   }
 
   #copyright {

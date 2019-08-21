@@ -86,12 +86,14 @@ export default {
   display: flex;
   justify-content: center;
   padding: 120px 0;
+  animation: careerContentsFadeIn 1s;
 }
 
 #about h3 {
+  margin: 0 0 10px 0;
   color: #2c69d5;
   font-size: 26px;
-  margin: 0 0 10px 0;
+  line-height: 1.42857143;
 }
 
 #about h4 {
@@ -120,6 +122,7 @@ export default {
 
 #about > div:first-child {
   width: 1170px;
+  height: 503px;
 }
 
 #about-1 {
@@ -131,10 +134,21 @@ export default {
 }
 
 #about-2 > ul {
-  margin: 0 0 50px 0;
+  margin: 0 0 46px 0;
   list-style-type: disc;
-  color: #777;
+  color: #333;
   font-size: 14px;
   line-height: 1.42857143;
+}
+
+@keyframes careerContentsFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+
+  100% {
+    opacity: 100%;
+  }
 }
 </style>

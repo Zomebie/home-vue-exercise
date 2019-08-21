@@ -1,18 +1,18 @@
 <template>
   <article>
     <News></News>
-    <Contents></Contents>
+    <HomeInnerContents></HomeInnerContents>
   </article>
 </template>
 
 <script>
 import News from "../News";
-import Contents from "../Contents";
+import HomeInnerContents from "../HomeInnerContents";
 
 export default {
   components: {
     News,
-    Contents
+    HomeInnerContents
   }
 };
 </script>
