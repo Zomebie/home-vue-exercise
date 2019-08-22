@@ -22,12 +22,12 @@
         </ul>
       </nav>
 
-      <button id="alter-nav-bar-button" @click="showAlterNav">
-        <i class="fas fa-bars" v-if="!alterNavigationShowed"></i>
+      <button id="alter-nav-bar-button" @click="toggleAlterNav">
+        <i class="fas fa-bars" v-if="!alterNavFlag"></i>
         <i class="fas fa-times" v-else></i>
       </button>
 
-      <nav id="alter-nav-bar" v-if="alterNavigationShowed">
+      <nav id="alter-nav-bar" :class="[alterNavFlag?'open': alterNavFlag === null ? '' : 'close']">
         <ul>
           <router-link tag="li" v-for="list in lists" :key="list.id" :to="list.link">
             <span>{{list.name}}</span>
@@ -59,20 +59,15 @@ export default {
           link: "/join-with-us-2"
         }
       ],
-      alterNavigationShowed: false
+      alterNavFlag: null
     };
   },
-
   methods: {
     linkToHome() {
       location.href = "/";
     },
-    showAlterNav() {
-      if (this.alterNavigationShowed) {
-        this.alterNavigationShowed = false;
-      } else {
-        this.alterNavigationShowed = true;
-      }
+    toggleAlterNav() {
+      this.alterNavFlag = !this.alterNavFlag;
     }
   }
 };
@@ -184,10 +179,12 @@ header {
   background: #161616;
   visibility: hidden;
   opacity: 0;
-  animation: NavigationFadeIn 1s forwards;
 }
 
-#alter-nav-bar.closed {
+#alter-nav-bar.open {
+  animation: NavigationFadeIn 1s forwards;
+}
+#alter-nav-bar.close {
   animation: NavigationFadeOut 1s forwards;
 }
 
