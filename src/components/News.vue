@@ -1,7 +1,6 @@
 <template>
   <section id="news-section">
     <progress :value="progressValue"></progress>
-    <!-- <div id="page-loading-icon"></div> -->
     <button id="prev-arrow" class="slide-button arrow" @click="prevSlide">
       <i class="fas fa-angle-left"></i>
     </button>
@@ -74,8 +73,11 @@ export default {
   created() {
     this.selectedSlide = this.slideArray[0];
   },
+
   mounted() {
     const slide = document.getElementById("news-section");
+
+    slide.addEventListener("mouseout", this.autoSliding);
 
     slide.addEventListener("mouseover", _ => {
       if (this.timerId) {
@@ -83,19 +85,30 @@ export default {
       }
     });
 
-    slide.addEventListener("mouseout", _ => {
-      this.timerId = setInterval(_ => {
-        if (this.progressValue >= 10) {
-          this.nextSlide();
-          this.progressValue = 0;
-        } else {
-          this.progressValue++;
-        }
-      }, 1000);
+    window.addEventListener("scroll", _ => {
+      if (this.timerId) {
+        clearInterval(this.timerId);
+      }
+      slide.removeEventListener("mouseout", this.autoSliding);
     });
   },
 
   methods: {
+    autoSliding() {
+      this.timerId = setInterval(_ => {
+        if (this.$router.history.current.path !== "/") {
+          clearInterval(this.timerId);
+        }
+
+        if (this.progressValue >= 10) {
+          this.nextSlide();
+          this.progressValue = 0;
+        }
+
+        this.progressValue++;
+      }, 1000);
+    },
+
     prevSlide() {
       const selectedSlideId = this.selectedSlide.id;
 
@@ -154,19 +167,6 @@ progress {
   width: 0%;
   height: 5px;
   background: rgba(255, 255, 255, 0.15);
-  /* animation: progressive 10s forwards; */
-}
-
-#page-loading-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 80px;
-  height: 80px;
-  z-index: 2;
-  background: white;
-  box-shadow: 15px 15px 35px #032d5d50;
-  display: none;
 }
 
 #news-section:hover .slide-button {
@@ -227,6 +227,11 @@ progress {
   height: 3px;
   background: rgba(45, 48, 50, 0.2);
   cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#slide-bottom-bar li:hover {
+  background: rgba(45, 48, 50, 0.65);
 }
 
 #slide-bottom-bar li.selected {

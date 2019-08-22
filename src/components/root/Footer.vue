@@ -2,11 +2,11 @@
   <footer>
     <div id="footer-contents">
       <div id="fixed-info">
-        <div class="half-basis">
+        <div>
           <img src="../../assets/main/keyinside-logo.png" alt="키인사이드" width="157" height="32" />
         </div>
 
-        <div id="recruit-info" class="half-basis">
+        <div id="recruit-info">
           <div>
             <strong>RECRUIT</strong>
             <p>recruite@key-inside.com</p>
@@ -18,7 +18,7 @@
         </div>
       </div>
 
-      <div class="half-basis">
+      <div id="contact-info">
         <strong>CONTACT INFO</strong>
         <p>7F, 14, Teheran-ro 86-gil, Gangnam-gu, Seoul, Korea (06179)</p>
         <p>+82 070-4012-3554</p>
@@ -40,7 +40,7 @@ footer {
   height: 350px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background: #1e1e1e;
   color: #b4b4b4;
@@ -48,6 +48,7 @@ footer {
 
 #footer-contents {
   width: 1170px;
+  margin-top: 100px;
   display: flex;
 }
 
@@ -58,28 +59,35 @@ footer {
 
 #fixed-info {
   display: flex;
-  flex-basis: 50%;
+  flex-basis: 48%;
 }
 
-.half-basis {
-  flex-basis: 50%;
+#fixed-info > div:first-child {
+  flex-basis: 53.5%;
 }
 
 #recruit-info div:first-child {
   margin-bottom: 1em;
 }
 
+#contact-info {
+  padding-left: 35px;
+}
+
 #copyright {
   width: 1170px;
   margin-top: 30px;
-  padding-top: 20px;
-  padding-left: 30px;
+  padding: 23px 0 15px 30px;
   border-top: 1px solid #303239;
   font-size: 14px;
 }
 
 /* responsive */
 @media screen and (max-width: 1200px) {
+  footer {
+    height: 100%;
+  }
+
   #footer-contents {
     width: 70%;
     flex-direction: column;

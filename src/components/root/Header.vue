@@ -29,7 +29,13 @@
 
       <nav id="alter-nav-bar" :class="[alterNavFlag?'open':'']">
         <ul>
-          <router-link tag="li" v-for="list in lists" :key="list.id" :to="list.link">
+          <router-link
+            tag="li"
+            v-for="list in lists"
+            :key="list.id"
+            :to="list.link"
+            @click.native="toggleAlterNav"
+          >
             <span>{{list.name}}</span>
           </router-link>
         </ul>

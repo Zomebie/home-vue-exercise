@@ -3,11 +3,9 @@
     <PageTitle title="Meet Our Team" titleId="meet-our-team"></PageTitle>
 
     <section id="members">
-      <div>
-        <div v-for="cMember in cMembers" :key="cMember" class="c-member-common">
-          <img :src="getImgUrl(cMember)" width="590" height="400" />
-          <img :src="getInfoImgUrl(cMember)" width="590" height="400" />
-        </div>
+      <div v-for="cMember in cMembers" :key="cMember" class="c-member-common">
+        <img :src="getImgUrl(cMember)" width="590" height="400" />
+        <img :src="getInfoImgUrl(cMember)" width="590" height="400" />
       </div>
 
       <div class="member-common">

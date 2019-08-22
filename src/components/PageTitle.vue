@@ -35,10 +35,12 @@ export default {
   background-color: rgba(0, 0, 0, 0.55);
 }
 
+#stay-tuned-with-us,
 #join-with-us {
   background-image: url("../assets/career/sub_img_blog1.jpg");
 }
 
+#stay-tuned-with-us-background,
 #join-with-us-background {
   background-color: rgba(0, 0, 0, 0.75);
 }
