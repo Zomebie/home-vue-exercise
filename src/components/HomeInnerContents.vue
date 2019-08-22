@@ -68,6 +68,27 @@
   </section>
 </template>
 
+<script>
+export default {
+  mounted() {
+    const ioCallback = entries => {
+      entries.forEach(({ intersectionRatio, target }) => {
+        if (intersectionRatio > 0) {
+          target.classList.add("observed");
+        }
+      });
+    };
+
+    const intersectionObserver = new IntersectionObserver(ioCallback);
+
+    const animatedImages = document.getElementsByClassName("animated-image");
+    for (let item of animatedImages) {
+      intersectionObserver.observe(item);
+    }
+  }
+};
+</script>
+
 <style>
 .home-contents-common {
   display: flex;
@@ -207,6 +228,7 @@
 /* responsive */
 @media screen and (max-width: 400px) {
   #map > iframe {
+    width: 90%;
     height: 400px;
   }
 }

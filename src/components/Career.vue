@@ -93,6 +93,7 @@ export default {
   margin: 0 0 10px 0;
   color: #2c69d5;
   font-size: 26px;
+  font-weight: 700;
   line-height: 1.42857143;
 }
 
@@ -141,6 +142,14 @@ export default {
   line-height: 1.42857143;
 }
 
+/* responsive */
+@media screen and (max-width: 1200px) {
+  #about > div:first-child {
+    width: 80%;
+  }
+}
+
+/* animation */
 @keyframes careerContentsFadeIn {
   0% {
     opacity: 0;

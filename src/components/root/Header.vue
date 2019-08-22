@@ -27,7 +27,7 @@
         <i class="fas fa-times" v-else></i>
       </button>
 
-      <nav id="alter-nav-bar" :class="[alterNavFlag?'open': alterNavFlag === null ? '' : 'close']">
+      <nav id="alter-nav-bar" :class="[alterNavFlag?'open':'']">
         <ul>
           <router-link tag="li" v-for="list in lists" :key="list.id" :to="list.link">
             <span>{{list.name}}</span>
@@ -59,7 +59,7 @@ export default {
           link: "/join-with-us-2"
         }
       ],
-      alterNavFlag: null
+      alterNavFlag: false
     };
   },
   methods: {
@@ -69,6 +69,16 @@ export default {
     toggleAlterNav() {
       this.alterNavFlag = !this.alterNavFlag;
     }
+  },
+  mounted() {
+    window.addEventListener("scroll", _ => {
+      const header = document.querySelector("header");
+      if (window.scrollY > 0) {
+        header.style.backgroundColor = "rgba(0, 0, 0, 0.85)";
+        return;
+      }
+      header.style.backgroundColor = "transparent";
+    });
   }
 };
 </script>
@@ -129,7 +139,7 @@ header {
 #nav-bar > ul > li > .menu-wrapper > .text-wrapper > .text {
   position: relative;
   display: inline-block;
-  transition: all ease 0.3s;
+  transition: transform ease 0.3s;
 }
 
 #nav-bar > ul > li > .menu-wrapper > .text-wrapper > .text:before {
@@ -150,7 +160,8 @@ header {
   transform: translateX(-50%);
 }
 
-#nav-bar > ul > li:hover {
+#nav-bar > ul > li:hover .text {
+  transform: translateY(-100%);
   animation: change-color 0.4s forwards;
 }
 
@@ -177,15 +188,16 @@ header {
   top: 94px;
   width: 100%;
   background: #161616;
-  visibility: hidden;
   opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1s, opacity 1s;
 }
 
 #alter-nav-bar.open {
-  animation: NavigationFadeIn 1s forwards;
-}
-#alter-nav-bar.close {
-  animation: NavigationFadeOut 1s forwards;
+  transform: scaleY(1);
+  transform-origin: top;
+  opacity: 1;
 }
 
 #alter-nav-bar > ul {
@@ -203,15 +215,7 @@ header {
 }
 
 /* responsive */
-@media screen and (max-width: 1200px) {
-  #header-contents {
-    width: 90%;
-    padding-right: 15px;
-    padding-left: 15px;
-  }
-}
-
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 992px) {
   #nav-bar {
     display: none;
   }
@@ -220,39 +224,18 @@ header {
   }
 }
 
+@media screen and (max-width: 1200px) {
+  header #header-contents {
+    width: 90%;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+
 /* animation */
 @keyframes change-color {
   100% {
     color: #1e73be;
-  }
-}
-
-@keyframes NavigationFadeIn {
-  0% {
-    display: flex;
-    transform: scaleY(0);
-    transform-origin: top;
-  }
-
-  100% {
-    transform-origin: top;
-    visibility: visible;
-    opacity: 1;
-  }
-}
-
-@keyframes NavigationFadeOut {
-  0% {
-    transform-origin: top;
-    visibility: visible;
-    opacity: 1;
-  }
-
-  100% {
-    transform: scaleY(0);
-    transform-origin: top;
-    visibility: hidden;
-    opacity: 0;
   }
 }
 </style>

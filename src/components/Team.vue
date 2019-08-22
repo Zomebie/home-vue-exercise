@@ -3,43 +3,21 @@
     <PageTitle title="Meet Our Team" titleId="meet-our-team"></PageTitle>
 
     <section id="members">
-      <div class="c-level-common">
-        <img src="../assets/team/jaden.png" width="590" height="400" />
-        <img src="../assets/team/jaden-info.png" width="590" height="400" />
+      <div>
+        <div v-for="cMember in cMembers" :key="cMember" class="c-member-common">
+          <img :src="getImgUrl(cMember)" width="590" height="400" />
+          <img :src="getInfoImgUrl(cMember)" width="590" height="400" />
+        </div>
       </div>
 
-      <div class="c-level-common">
-        <img src="../assets/team/rooney.png" width="590" height="400" />
-        <img src="../assets/team/rooney-info.png" width="590" height="400" />
-      </div>
-
-      <div class="c-level-common">
-        <img src="../assets/team/shawn.png" width="590" height="400" />
-        <img src="../assets/team/shawn-info.png" width="590" height="400" />
-      </div>
-
-      <div class="team-common">
-        <img src="../assets/team/sam.png" width="380" height="320" />
-        <img src="../assets/team/brooks.png" width="380" height="320" />
-        <img src="../assets/team/kate.png" width="380" height="320" />
-      </div>
-
-      <div class="team-common">
-        <img src="../assets/team/tommy.png" width="380" height="320" />
-        <img src="../assets/team/jason.png" width="380" height="320" />
-        <img src="../assets/team/eddie.png" width="380" height="320" />
-      </div>
-
-      <div class="team-common">
-        <img src="../assets/team/jello.png" width="380" height="320" />
-        <img src="../assets/team/james.png" width="380" height="320" />
-        <img src="../assets/team/mickey.png" width="380" height="320" />
-      </div>
-
-      <div class="team-common">
-        <img src="../assets/team/khai.png" width="380" height="320" />
-        <img src="../assets/team/samuel.png" width="380" height="320" />
-        <img src="../assets/team/bea.png" width="380" height="320" />
+      <div class="member-common">
+        <img
+          v-for="member in members"
+          :key="member"
+          :src="getImgUrl(member)"
+          width="380"
+          height="320"
+        />
       </div>
     </section>
   </article>
@@ -51,6 +29,33 @@ import PageTitle from "./PageTitle.vue";
 export default {
   components: {
     PageTitle
+  },
+  data() {
+    return {
+      cMembers: ["jaden", "rooney", "shawn"],
+      members: [
+        "sam",
+        "brooks",
+        "kate",
+        "tommy",
+        "jason",
+        "eddie",
+        "jello",
+        "james",
+        "mickey",
+        "khei",
+        "samuel",
+        "bea"
+      ]
+    };
+  },
+  methods: {
+    getImgUrl(member) {
+      return `src/assets/team/${member}.png`;
+    },
+    getInfoImgUrl(member) {
+      return `src/assets/team/${member}-info.png`;
+    }
   }
 };
 </script>
@@ -60,32 +65,25 @@ export default {
   padding-top: 120px;
 }
 
-#members .c-level-common {
+#members .c-member-common {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-#members .c-level-common:nth-child(2) {
+#members .c-member-common:nth-child(2) {
   margin: 35px 0;
 }
 
-#members .c-level-common:nth-child(3) {
-  margin-bottom: 65px;
-}
-
-#members .team-common {
+#members .member-common {
   display: flex;
+  max-width: 1200px;
+  margin: 65px auto 155px auto;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 15px;
 }
 
-#members .team-common > img:nth-child(2) {
-  margin: 0px 20px;
-}
-
-#members div:last-child {
-  margin-bottom: 155px;
+#members .member-common > img {
+  margin: auto auto 15px auto;
 }
 </style>

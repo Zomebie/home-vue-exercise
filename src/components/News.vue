@@ -73,7 +73,6 @@ export default {
 
   created() {
     this.selectedSlide = this.slideArray[0];
-    // this.$store.state.slide = this.slideArray[0];
   },
   mounted() {
     const slide = document.getElementById("news-section");
@@ -95,17 +94,6 @@ export default {
       }, 1000);
     });
   },
-
-  // computed: {
-  //   selectedSlide: {
-  //     get() {
-  //       return this.$store.state.slide;
-  //     },
-  //     set(selected) {
-  //       this.$store.state.slide = selected;
-  //     }
-  //   }
-  // },
 
   methods: {
     prevSlide() {
