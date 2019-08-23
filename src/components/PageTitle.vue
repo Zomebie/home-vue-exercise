@@ -1,5 +1,6 @@
  <template>
   <section :id="titleId" class="title-common">
+    <vue-headful :title="title+' | 키인사이드'" />
     <div :id="titleId+'-background'" class="background-filter"></div>
     <div>
       <h1>{{title}}</h1>
@@ -26,8 +27,10 @@ export default {
   overflow: hidden;
   z-index: 0;
   background-position: center center;
-  background-size: auto;
-  background-attachment: scroll;
+}
+
+.title-common h1 {
+  padding-top: 53px;
 }
 
 #meet-our-team {

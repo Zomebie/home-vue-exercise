@@ -100,7 +100,8 @@ export default {
 
 #about h4 {
   margin: 0;
-  padding-bottom: 2px;
+  padding-top: 2px;
+  padding-bottom: 3px;
   color: #777;
 }
 
@@ -129,7 +130,7 @@ export default {
 }
 
 #about-1 {
-  margin-bottom: 40px;
+  margin-bottom: 36px;
 }
 
 #about-1 > p {
