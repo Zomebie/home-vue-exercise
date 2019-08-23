@@ -37,7 +37,7 @@ export default {
         {
           id: 1,
           type: "NEWS",
-          title: "하이퍼레저 패브릭 기반 암호화폐가 온다",
+          title: "하이퍼레저 패브릭 기반 암호화폐가 온다.",
           link: "https://www.coindeskkorea.com/hyperledgerfabrictoken/",
           additionalInfo: "coindeskkorea 2019.7.5"
         },
@@ -58,10 +58,11 @@ export default {
         },
         {
           id: 4,
-          type: "NEWS",
-          title: "키인사이드, 포인트 호환을 통해서 블록체인 대중화 나선다",
-          link: "http://www.thebchain.co.kr/news/articleView.html?idxno=3629",
-          additionalInfo: "thebchain 2019.3.13"
+          type: "ANNOUNCEMENT",
+          title: "연구소 설립과 동시에 기술력 인정 벤처기업 인증",
+          link:
+            "http://www.key-inside.com/2018/12/26/establishment-unlock-lab-certificate-of-venture-business-in-blockchain-tech/",
+          additionalInfo: ""
         }
       ],
       selectedSlide: {},
@@ -197,10 +198,14 @@ progress {
 }
 
 #prev-arrow {
+  padding-right: 2px;
+  padding-bottom: 2px;
   transform: matrix(1, 0, 0, 1, 30, -20);
 }
 
 #next-arrow {
+  padding-left: 2px;
+  padding-bottom: 2px;
   transform: matrix(1, 0, 0, 1, -70, -20);
   left: 100%;
 }

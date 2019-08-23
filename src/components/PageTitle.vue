@@ -25,6 +25,9 @@ export default {
   align-items: center;
   overflow: hidden;
   z-index: 0;
+  background-position: center center;
+  background-size: auto;
+  background-attachment: scroll;
 }
 
 #meet-our-team {

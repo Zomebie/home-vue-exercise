@@ -28,6 +28,7 @@ export default {
   components: {
     PageTitle
   },
+
   data() {
     return {
       cMembers: ["jaden", "rooney", "shawn"],
@@ -47,6 +48,7 @@ export default {
       ]
     };
   },
+
   methods: {
     getImgUrl(member) {
       return `src/assets/team/${member}.png`;

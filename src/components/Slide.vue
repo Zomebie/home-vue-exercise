@@ -1,10 +1,6 @@
 <template>
-  <section
-    :key="source.id"
-    :style="{backgroundImage:'url(' + slideImage + ')'}"
-    :class="{'filter':(source.id===1),'slide':true}"
-    id="slide-main"
-  >
+  <section :key="source.id" :class="{'filter':(source.id===1),'slide':true}" id="slide-main">
+    <div :style="{backgroundImage:'url(' + slideImage + ')'}" class="background-filter"></div>
     <div id="news-background-blue-filter" class="background-filter slide"></div>
     <div id="news-background-dot-filter" class="background-filter slide" v-if="source.id!==1"></div>
     <div id="main-slide-only-filter" class="background-filter slide" v-if="source.id===1"></div>
@@ -50,12 +46,15 @@ export default {
 
 <style>
 .slide {
-  animation: background-image-fade 1.5s;
+  animation: background-image-fade 2s;
 }
 
 #slide-main {
   width: 100%;
   height: 100%;
+}
+
+#slide-main div:first-child {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -78,7 +77,6 @@ export default {
 .news-box-animation {
   position: absolute;
   width: 940px;
-  height: 142px;
   bottom: 60px;
   left: 0;
   right: 0;
@@ -89,7 +87,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
   background: white;
 }
 
@@ -104,6 +101,7 @@ export default {
 
 #type {
   position: relative;
+  padding-top: 3px;
   font-size: 15px;
   font-weight: 600;
   color: rgb(197, 164, 119);
@@ -112,6 +110,7 @@ export default {
 
 #link-box {
   position: relative;
+  margin-top: 11px;
   width: 80%;
   font-size: 45px;
   text-align: center;
@@ -129,6 +128,8 @@ export default {
 
 #additional-info {
   position: relative;
+  margin-top: 24px;
+  margin-bottom: 6px;
   font-size: 16px;
   text-align: center;
   color: rgba(45, 48, 50, 0.75);

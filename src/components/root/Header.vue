@@ -68,6 +68,7 @@ export default {
       alterNavFlag: false
     };
   },
+
   methods: {
     linkToHome() {
       location.href = "/";
@@ -76,6 +77,7 @@ export default {
       this.alterNavFlag = !this.alterNavFlag;
     }
   },
+
   mounted() {
     window.addEventListener("scroll", _ => {
       const header = document.querySelector("header");
@@ -112,6 +114,7 @@ header {
 }
 
 #header-contents > img {
+  padding-bottom: 4px;
   cursor: pointer;
 }
 

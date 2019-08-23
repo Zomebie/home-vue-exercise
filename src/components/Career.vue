@@ -90,7 +90,8 @@ export default {
 }
 
 #about h3 {
-  margin: 0 0 10px 0;
+  margin: 0;
+  padding-bottom: 10px;
   color: #2c69d5;
   font-size: 26px;
   font-weight: 700;
@@ -99,6 +100,7 @@ export default {
 
 #about h4 {
   margin: 0;
+  padding-bottom: 2px;
   color: #777;
 }
 
@@ -146,6 +148,7 @@ export default {
 @media screen and (max-width: 1200px) {
   #about > div:first-child {
     width: 80%;
+    height: 100%;
   }
 }
 
